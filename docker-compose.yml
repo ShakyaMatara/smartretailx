@@ -1,0 +1,51 @@
+services:
+
+  user-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${USER_DB_USER}
+      POSTGRES_PASSWORD: ${USER_DB_PASSWORD}
+      POSTGRES_DB: ${USER_DB_NAME}
+    volumes:
+      # Named volume so data survives container restarts.
+      - user-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${USER_DB_USER} -d ${USER_DB_NAME}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - smartretailx-net
+
+  user-service:
+    image: smartretailx/user-service:1.2.0
+    build: ./services/user-service
+    ports:
+      - "8001:8000"
+    environment:
+      SERVICE_NAME: user-service
+      DATABASE_URL: postgresql+psycopg://${USER_DB_USER}:${USER_DB_PASSWORD}@user-db:5432/${USER_DB_NAME}
+      JWT_PRIVATE_KEY_PATH: /run/keys/jwt-private.pem
+      JWT_PUBLIC_KEY_PATH: /run/keys/jwt-public.pem
+    volumes:
+      - ./keys:/run/keys:ro
+    depends_on:
+      user-db:
+        # Waits for the database to be HEALTHY, not merely started.
+        # Without this the service boots first and crashes on connect.
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    networks:
+      - smartretailx-net
+
+networks:
+  smartretailx-net:
+    driver: bridge
+
+volumes:
+  user-db-data:
