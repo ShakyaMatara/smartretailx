@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SmartRetailX Live Event Stream</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; background: #0f172a; color: #e2e8f0; }
+  header { padding: 20px 28px; background: #1e293b; border-bottom: 2px solid #334155; }
+  h1 { margin: 0; font-size: 20px; }
+  #status { margin-top: 6px; font-size: 13px; color: #94a3b8; }
+  #status.live { color: #4ade80; }
+  #events { padding: 20px 28px; }
+  .event { background: #1e293b; border-left: 4px solid #64748b; padding: 12px 16px;
+           margin-bottom: 10px; border-radius: 4px; }
+  .event .type { font-weight: 600; font-size: 15px; }
+  .event .meta { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+  .event .payload { font-family: ui-monospace, monospace; font-size: 12px;
+                    color: #cbd5e1; margin-top: 8px; white-space: pre-wrap; }
+  .OrderCreated     { border-left-color: #3b82f6; }
+  .StockReserved    { border-left-color: #06b6d4; }
+  .PaymentSucceeded { border-left-color: #22c55e; }
+  .OrderConfirmed   { border-left-color: #22c55e; }
+  .PaymentFailed      { border-left-color: #ef4444; }
+  .StockInsufficient  { border-left-color: #ef4444; }
+  .OrderCancelled     { border-left-color: #ef4444; }
+  .DeliveryUpdated  { border-left-color: #a855f7; }
+</style>
+</head>
+<body>
+<header>
+  <h1>SmartRetailX &mdash; Live Event Stream</h1>
+  <div id="status">Connecting&hellip;</div>
+</header>
+<div id="events"></div>
+
+<script>
+const statusEl = document.getElementById('status');
+const eventsEl = document.getElementById('events');
+
+function connect() {
+  const socket = new WebSocket(`ws://${location.host}/ws/events`);
+
+  socket.onopen = () => {
+    statusEl.textContent = 'Connected — listening for events';
+    statusEl.className = 'live';
+    // Periodic ping keeps the connection alive through idle timeouts.
+    setInterval(() => {
+      if (socket.readyState === WebSocket.OPEN) socket.send('ping');
+    }, 20000);
+  };
+
+  socket.onmessage = (message) => {
+    const evt = JSON.parse(message.data);
+    const div = document.createElement('div');
+    div.className = 'event ' + evt.event_type;
+    div.innerHTML =
+      `<div class="type">${evt.event_type}</div>
+       <div class="meta">${new Date(evt.occurred_at).toLocaleTimeString()}
+         &nbsp;·&nbsp; correlation: ${evt.correlation_id}</div>
+       <div class="payload">${JSON.stringify(evt.payload, null, 2)}</div>`;
+    eventsEl.prepend(div);
+  };
+
+  socket.onclose = () => {
+    statusEl.textContent = 'Disconnected — retrying in 3s';
+    statusEl.className = '';
+    // Automatic reconnection: a resilience behaviour worth naming.
+    setTimeout(connect, 3000);
+  };
+}
+
+connect();
+</script>
+</body>
+</html>

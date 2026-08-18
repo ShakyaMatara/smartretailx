@@ -31,8 +31,204 @@ services:
       - ./keys:/run/keys:ro
     depends_on:
       user-db:
-        # Waits for the database to be HEALTHY, not merely started.
-        # Without this the service boots first and crashes on connect.
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    networks:
+      - smartretailx-net
+
+  localstack:
+    image: localstack/localstack:2026.7.4
+    environment:
+      SERVICES: dynamodb,sqs,sns
+      AWS_DEFAULT_REGION: eu-west-1
+      LOCALSTACK_AUTH_TOKEN: ${LOCALSTACK_AUTH_TOKEN}
+    ports:
+      - "4566:4566"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:4566/_localstack/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - smartretailx-net
+
+  catalogue-service:
+    image: smartretailx/catalogue-service:1.0.0
+    build: ./services/catalogue-service
+    ports:
+      - "8002:8000"
+    environment:
+      SERVICE_NAME: catalogue-service
+      AWS_ENDPOINT_URL: http://localstack:4566
+      AWS_DEFAULT_REGION: eu-west-1
+
+      # Dummy credentials - LocalStack accepts any value.
+      # In AWS these are absent and the ECS task role supplies them.
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+
+      # Where to fetch the public keys for token verification.
+      JWKS_URL: http://user-service:8000/.well-known/jwks.json
+    depends_on:
+      localstack:
+        condition: service_healthy
+      user-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    networks:
+      - smartretailx-net
+
+  order-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${ORDER_DB_USER}
+      POSTGRES_PASSWORD: ${ORDER_DB_PASSWORD}
+      POSTGRES_DB: ${ORDER_DB_NAME}
+    volumes:
+      - order-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${ORDER_DB_USER} -d ${ORDER_DB_NAME}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - smartretailx-net
+
+  order-service:
+    image: smartretailx/order-service:1.0.0
+    build:
+      context: .
+      dockerfile: ./services/order-service/Dockerfile
+    ports:
+      - "8003:8000"
+    environment:
+      SERVICE_NAME: order-service
+      DATABASE_URL: postgresql+psycopg://${ORDER_DB_USER}:${ORDER_DB_PASSWORD}@order-db:5432/${ORDER_DB_NAME}
+      AWS_ENDPOINT_URL: http://localstack:4566
+      AWS_DEFAULT_REGION: eu-west-1
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      CATALOGUE_URL: http://catalogue-service:8000
+      JWKS_URL: http://user-service:8000/.well-known/jwks.json
+    depends_on:
+      order-db:
+        condition: service_healthy
+      localstack:
+        condition: service_healthy
+      user-service:
+        condition: service_healthy
+      catalogue-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 15s
+    networks:
+      - smartretailx-net
+  inventory-service:
+    image: smartretailx/inventory-service:1.0.0
+    build:
+      context: .
+      dockerfile: ./services/inventory-service/Dockerfile
+    ports:
+      - "8004:8000"
+    environment:
+      SERVICE_NAME: inventory-service
+      AWS_ENDPOINT_URL: http://localstack:4566
+      AWS_DEFAULT_REGION: eu-west-1
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      JWKS_URL: http://user-service:8000/.well-known/jwks.json
+    depends_on:
+      localstack:
+        condition: service_healthy
+      user-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 15s
+    networks:
+      - smartretailx-net
+
+  payment-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${PAYMENT_DB_USER}
+      POSTGRES_PASSWORD: ${PAYMENT_DB_PASSWORD}
+      POSTGRES_DB: ${PAYMENT_DB_NAME}
+    volumes:
+      - payment-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PAYMENT_DB_USER} -d ${PAYMENT_DB_NAME}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - smartretailx-net
+
+  payment-service:
+    image: smartretailx/payment-service:1.0.0
+    build:
+      context: .
+      dockerfile: ./services/payment-service/Dockerfile
+    ports:
+      - "8005:8000"
+    environment:
+      SERVICE_NAME: payment-service
+      DATABASE_URL: postgresql+psycopg://${PAYMENT_DB_USER}:${PAYMENT_DB_PASSWORD}@payment-db:5432/${PAYMENT_DB_NAME}
+      AWS_ENDPOINT_URL: http://localstack:4566
+      AWS_DEFAULT_REGION: eu-west-1
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      JWKS_URL: http://user-service:8000/.well-known/jwks.json
+      FORCE_PAYMENT_FAILURE: "true"
+    depends_on:
+      payment-db:
+        condition: service_healthy
+      localstack:
+        condition: service_healthy
+      user-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 15s
+    networks:
+      - smartretailx-net
+
+  notification-service:
+    image: smartretailx/notification-service:1.0.0
+    build:
+      context: .
+      dockerfile: ./services/notification-service/Dockerfile
+    ports:
+      - "8006:8000"
+    environment:
+      SERVICE_NAME: notification-service
+      AWS_ENDPOINT_URL: http://localstack:4566
+      AWS_DEFAULT_REGION: eu-west-1
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+    depends_on:
+      localstack:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
@@ -49,3 +245,5 @@ networks:
 
 volumes:
   user-db-data:
+  order-db-data:
+  payment-db-data:

@@ -96,7 +96,7 @@ def public_jwks() -> dict:
     Publish the public key in JWKS format so other services can fetch
     it over HTTP and verify tokens without any shared secret.
     """
-    public_key_obj = load_pem_public_key(_public_key().encode())
-    jwk = json.loads(RSAAlgorithm.to_jwk(public_key_obj))
+    key = load_pem_public_key(_public_key().encode())
+    jwk = json.loads(RSAAlgorithm.to_jwk(key))
     jwk.update({"kid": key_id(), "use": "sig", "alg": settings.jwt_algorithm})
     return {"keys": [jwk]}
