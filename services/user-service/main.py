@@ -189,7 +189,7 @@ def erase_own_account(
     deleted, so that referential integrity with historical order records
     is preserved while no personal data remains.
     """
-    current_user.email = f"erased-{current_user.id}@invalid.local"
+    current_user.email = f"erased-{current_user.id}@example.com"
     current_user.full_name = "[erased]"
     current_user.password_hash = hash_password(str(uuid.uuid4()))
     current_user.is_active = False

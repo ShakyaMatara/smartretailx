@@ -1,0 +1,271 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 830" width="1500" height="830">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8894A5"/></marker></defs>
+<rect width="1500" height="830" fill="#FFFFFF"/>
+<text x="24" y="38" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="700" fill="#1B2430">SmartRetailX — Target AWS Architecture</text>
+<text x="24" y="59" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="400" fill="#5A6675">Region eu-west-1 (Ireland) · Multi-AZ · ECS Fargate</text>
+<rect x="22" y="82" width="208" height="560" rx="10" fill="#FFFFFF" stroke="#9AA6B5" stroke-width="1.6"/>
+<text x="36" y="103" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" font-weight="700" fill="#5A6675" letter-spacing="0.4">EDGE &amp; ENTRY</text>
+<rect x="34" y="120" width="184" height="44" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="43" y="129.0" width="26" height="26" rx="6" fill="#8C4FFF"/>
+<circle cx="56" cy="138.0" r="4.2" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M49 150.0 a7 7 0 0 1 14 0" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<text x="78" y="146.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">External Users</text>
+<rect x="34" y="186" width="184" height="44" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="43" y="195.0" width="26" height="26" rx="6" fill="#8C4FFF"/>
+<circle cx="56" cy="208.0" r="7.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M48.5 208.0 H63.5 M56 200.5 Q61 208.0 56 215.5 Q51 208.0 56 200.5" fill="none" stroke="#FFFFFF" stroke-width="1.4"/>
+<text x="78" y="212.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Route 53</text>
+<rect x="34" y="252" width="184" height="44" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="43" y="261.0" width="26" height="26" rx="6" fill="#8C4FFF"/>
+<circle cx="56" cy="274.0" r="7.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M48.5 274.0 H63.5 M56 266.5 Q61 274.0 56 281.5 Q51 274.0 56 266.5" fill="none" stroke="#FFFFFF" stroke-width="1.4"/>
+<text x="78" y="278.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">CloudFront</text>
+<rect x="34" y="318" width="184" height="44" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="43" y="327.0" width="26" height="26" rx="6" fill="#DD344C"/>
+<path d="M56 332.0 l7 3 v6 c0 4.5 -3.2 7.5 -7 9 c-3.8 -1.5 -7 -4.5 -7 -9 v-6 z" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<text x="78" y="344.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">AWS WAF</text>
+<rect x="34" y="384" width="184" height="48" rx="7" fill="#E8F6ED" stroke="#1F8A4C" stroke-width="2.2"/>
+<rect x="43" y="395.0" width="26" height="26" rx="6" fill="#7AA116"/>
+<path d="M48 402.0 h16 v12 a8 3.4 0 0 1 -16 0 z" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<ellipse cx="56" cy="402.0" rx="8" ry="3.4" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<text x="78" y="406.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Amazon S3</text>
+<text x="78" y="419.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">static assets</text>
+<rect x="34" y="468" width="184" height="48" rx="7" fill="#E8F6ED" stroke="#1F8A4C" stroke-width="2.2"/>
+<rect x="43" y="479.0" width="26" height="26" rx="6" fill="#8C4FFF"/>
+<circle cx="56" cy="492.0" r="7.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M48.5 492.0 H63.5 M56 484.5 Q61 492.0 56 499.5 Q51 492.0 56 484.5" fill="none" stroke="#FFFFFF" stroke-width="1.4"/>
+<text x="78" y="490.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">API Gateway</text>
+<text x="78" y="503.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">HTTP API</text>
+<rect x="34" y="538" width="184" height="44" rx="7" fill="#E8F6ED" stroke="#1F8A4C" stroke-width="2.2"/>
+<rect x="43" y="547.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="49" y="553.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M49 557.5 H63" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="78" y="564.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">AWS Lambda</text>
+<path d="M 126 164 L 126 186" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<path d="M 126 230 L 126 252" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<path d="M 126 296 L 126 318" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<path d="M 74 362 L 74 384" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<path d="M 126 516 L 126 538" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<path d="M 206 142 L 224 142 L 224 468 L 206 468" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="250" y="82" width="880" height="560" rx="10" fill="#FBFAFF" stroke="#8C4FFF" stroke-width="1.6"/>
+<text x="264" y="103" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" font-weight="700" fill="#8C4FFF" letter-spacing="0.4">VPC  10.0.0.0/16</text>
+<rect x="262" y="116" width="421" height="500" rx="10" fill="#FFFDF5" stroke="#C9A227" stroke-width="1.6"/>
+<text x="276" y="137" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#8A6D0B" letter-spacing="0.4">AZ  eu-west-1a</text>
+<rect x="272" y="146" width="401" height="88" rx="10" fill="#F4FAF2" stroke="#7FB069" stroke-width="1.6"/>
+<text x="286" y="167" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" font-weight="700" fill="#5A6675" letter-spacing="0.4">Public subnet</text>
+<rect x="284" y="176" width="180" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="293" y="186.0" width="26" height="26" rx="6" fill="#8C4FFF"/>
+<circle cx="306" cy="199.0" r="7.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M298.5 199.0 H313.5 M306 191.5 Q311 199.0 306 206.5 Q301 199.0 306 191.5" fill="none" stroke="#FFFFFF" stroke-width="1.4"/>
+<text x="328" y="203.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Application LB</text>
+<rect x="480" y="176" width="180" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="489" y="186.0" width="26" height="26" rx="6" fill="#8C4FFF"/>
+<circle cx="502" cy="199.0" r="7.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M494.5 199.0 H509.5 M502 191.5 Q507 199.0 502 206.5 Q497 199.0 502 191.5" fill="none" stroke="#FFFFFF" stroke-width="1.4"/>
+<text x="524" y="203.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">NAT Gateway</text>
+<rect x="272" y="238" width="401" height="246" rx="10" fill="#F3F7FC" stroke="#6C8EBF" stroke-width="1.6"/>
+<text x="286" y="259" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" font-weight="700" fill="#5A6675" letter-spacing="0.4">Private app subnet · ECS Fargate</text>
+<rect x="284" y="264" width="182" height="54" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="293" y="278.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="299" y="284.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M299 288.5 H313" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="328" y="289.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">User Service</text>
+<text x="328" y="302.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">PostgreSQL</text>
+<rect x="478" y="264" width="182" height="54" rx="7" fill="#E8F6ED" stroke="#1F8A4C" stroke-width="2.2"/>
+<rect x="487" y="278.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="493" y="284.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M493 288.5 H507" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="522" y="289.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Product Catalogue</text>
+<text x="522" y="302.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">DynamoDB</text>
+<rect x="284" y="332" width="182" height="54" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="293" y="346.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="299" y="352.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M299 356.5 H313" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="328" y="357.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Order Service</text>
+<text x="328" y="370.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">PostgreSQL</text>
+<rect x="478" y="332" width="182" height="54" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="487" y="346.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="493" y="352.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M493 356.5 H507" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="522" y="357.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Inventory Service</text>
+<text x="522" y="370.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">DynamoDB</text>
+<rect x="284" y="400" width="182" height="54" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="293" y="414.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="299" y="420.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M299 424.5 H313" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="328" y="425.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Payment Service</text>
+<text x="328" y="438.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">PostgreSQL</text>
+<rect x="478" y="400" width="182" height="54" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="487" y="414.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="493" y="420.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M493 424.5 H507" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="522" y="425.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Notification Svc</text>
+<text x="522" y="438.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">WebSocket</text>
+<rect x="272" y="498" width="401" height="102" rx="10" fill="#FDF5F5" stroke="#B85450" stroke-width="1.6"/>
+<text x="286" y="519" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" font-weight="700" fill="#5A6675" letter-spacing="0.4">Private data subnet</text>
+<rect x="352" y="522" width="240" height="56" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="361" y="537.0" width="26" height="26" rx="6" fill="#C925D1"/>
+<ellipse cx="374" cy="544.5" rx="7.5" ry="3.2" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M366.5 544.5 v11 a7.5 3.2 0 0 0 15 0 v-11" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M366.5 550.0 a7.5 3.2 0 0 0 15 0" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="396" y="548.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">RDS PostgreSQL</text>
+<text x="396" y="561.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">primary</text>
+<path d="M 457 222 L 457 264" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<path d="M 457 468 L 457 522" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="697" y="116" width="421" height="500" rx="10" fill="#FFFDF5" stroke="#C9A227" stroke-width="1.6"/>
+<text x="711" y="137" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#8A6D0B" letter-spacing="0.4">AZ  eu-west-1b</text>
+<rect x="707" y="146" width="401" height="88" rx="10" fill="#F4FAF2" stroke="#7FB069" stroke-width="1.6"/>
+<text x="721" y="167" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" font-weight="700" fill="#5A6675" letter-spacing="0.4">Public subnet</text>
+<rect x="719" y="176" width="180" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="728" y="186.0" width="26" height="26" rx="6" fill="#8C4FFF"/>
+<circle cx="741" cy="199.0" r="7.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M733.5 199.0 H748.5 M741 191.5 Q746 199.0 741 206.5 Q736 199.0 741 191.5" fill="none" stroke="#FFFFFF" stroke-width="1.4"/>
+<text x="763" y="203.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Application LB</text>
+<rect x="915" y="176" width="180" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="924" y="186.0" width="26" height="26" rx="6" fill="#8C4FFF"/>
+<circle cx="937" cy="199.0" r="7.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M929.5 199.0 H944.5 M937 191.5 Q942 199.0 937 206.5 Q932 199.0 937 191.5" fill="none" stroke="#FFFFFF" stroke-width="1.4"/>
+<text x="959" y="203.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">NAT Gateway</text>
+<rect x="707" y="238" width="401" height="246" rx="10" fill="#F3F7FC" stroke="#6C8EBF" stroke-width="1.6"/>
+<text x="721" y="259" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" font-weight="700" fill="#5A6675" letter-spacing="0.4">Private app subnet · ECS Fargate</text>
+<rect x="719" y="264" width="182" height="54" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="728" y="278.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="734" y="284.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M734 288.5 H748" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="763" y="289.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">User Service</text>
+<text x="763" y="302.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">PostgreSQL</text>
+<rect x="913" y="264" width="182" height="54" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="922" y="278.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="928" y="284.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M928 288.5 H942" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="957" y="289.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Product Catalogue</text>
+<text x="957" y="302.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">DynamoDB</text>
+<rect x="719" y="332" width="182" height="54" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="728" y="346.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="734" y="352.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M734 356.5 H748" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="763" y="357.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Order Service</text>
+<text x="763" y="370.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">PostgreSQL</text>
+<rect x="913" y="332" width="182" height="54" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="922" y="346.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="928" y="352.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M928 356.5 H942" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="957" y="357.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Inventory Service</text>
+<text x="957" y="370.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">DynamoDB</text>
+<rect x="719" y="400" width="182" height="54" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="728" y="414.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="734" y="420.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M734 424.5 H748" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="763" y="425.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Payment Service</text>
+<text x="763" y="438.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">PostgreSQL</text>
+<rect x="913" y="400" width="182" height="54" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="922" y="414.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="928" y="420.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M928 424.5 H942" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="957" y="425.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Notification Svc</text>
+<text x="957" y="438.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">WebSocket</text>
+<rect x="707" y="498" width="401" height="102" rx="10" fill="#FDF5F5" stroke="#B85450" stroke-width="1.6"/>
+<text x="721" y="519" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" font-weight="700" fill="#5A6675" letter-spacing="0.4">Private data subnet</text>
+<rect x="787" y="522" width="240" height="56" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="796" y="537.0" width="26" height="26" rx="6" fill="#C925D1"/>
+<ellipse cx="809" cy="544.5" rx="7.5" ry="3.2" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M801.5 544.5 v11 a7.5 3.2 0 0 0 15 0 v-11" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M801.5 550.0 a7.5 3.2 0 0 0 15 0" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="831" y="548.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">RDS PostgreSQL</text>
+<text x="831" y="561.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">Multi-AZ standby</text>
+<path d="M 892 222 L 892 264" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<path d="M 892 468 L 892 522" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<path d="M 592 550 L 787 550" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="659.65" y="542.0" width="59.7" height="13" rx="3" fill="#FFFFFF" opacity="0.95"/>
+<text x="689.5" y="551.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.6" fill="#5A6675">replication</text>
+<path d="M 218 340 L 242 340 L 242 177 L 272 177" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="182.85" y="169" width="50.300000000000004" height="13" rx="3" fill="#FFFFFF" opacity="0.95"/>
+<text x="208" y="178.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.6" fill="#5A6675">HTTPS 443</text>
+<rect x="1172" y="82" width="306" height="560" rx="10" fill="#FFFFFF" stroke="#9AA6B5" stroke-width="1.6"/>
+<text x="1186" y="103" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" font-weight="700" fill="#5A6675" letter-spacing="0.4">REGIONAL SERVICES</text>
+<rect x="1186" y="120" width="278" height="50" rx="7" fill="#E8F6ED" stroke="#1F8A4C" stroke-width="2.2"/>
+<rect x="1195" y="132.0" width="26" height="26" rx="6" fill="#C925D1"/>
+<ellipse cx="1208" cy="139.5" rx="7.5" ry="3.2" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M1200.5 139.5 v11 a7.5 3.2 0 0 0 15 0 v-11" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M1200.5 145.0 a7.5 3.2 0 0 0 15 0" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="1230" y="143.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">DynamoDB</text>
+<text x="1230" y="156.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">products · inventory</text>
+<rect x="1186" y="184" width="278" height="50" rx="7" fill="#E8F6ED" stroke="#1F8A4C" stroke-width="2.2"/>
+<rect x="1195" y="196.0" width="26" height="26" rx="6" fill="#E7157B"/>
+<circle cx="1203" cy="205.0" r="2.8" fill="#FFFFFF"/>
+<circle cx="1213" cy="205.0" r="2.8" fill="#FFFFFF"/>
+<circle cx="1208" cy="215.0" r="2.8" fill="#FFFFFF"/>
+<path d="M1203 205.0 L1213 205.0 M1203 205.0 L1208 215.0 M1213 205.0 L1208 215.0" stroke="#FFFFFF" stroke-width="1.2" fill="none"/>
+<text x="1230" y="207.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Amazon SNS</text>
+<text x="1230" y="220.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">smartretailx-events</text>
+<rect x="1186" y="248" width="278" height="50" rx="7" fill="#E8F6ED" stroke="#1F8A4C" stroke-width="2.2"/>
+<rect x="1195" y="260.0" width="26" height="26" rx="6" fill="#E7157B"/>
+<circle cx="1203" cy="269.0" r="2.8" fill="#FFFFFF"/>
+<circle cx="1213" cy="269.0" r="2.8" fill="#FFFFFF"/>
+<circle cx="1208" cy="279.0" r="2.8" fill="#FFFFFF"/>
+<path d="M1203 269.0 L1213 269.0 M1203 269.0 L1208 279.0 M1213 269.0 L1208 279.0" stroke="#FFFFFF" stroke-width="1.2" fill="none"/>
+<text x="1230" y="271.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Amazon SQS</text>
+<text x="1230" y="284.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">5 queues + DLQs</text>
+<rect x="1186" y="312" width="278" height="46" rx="7" fill="#E8F6ED" stroke="#1F8A4C" stroke-width="2.2"/>
+<rect x="1195" y="322.0" width="26" height="26" rx="6" fill="#DD344C"/>
+<path d="M1208 327.0 l7 3 v6 c0 4.5 -3.2 7.5 -7 9 c-3.8 -1.5 -7 -4.5 -7 -9 v-6 z" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<text x="1230" y="339.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Secrets Manager</text>
+<rect x="1186" y="372" width="278" height="46" rx="7" fill="#E8F6ED" stroke="#1F8A4C" stroke-width="2.2"/>
+<rect x="1195" y="382.0" width="26" height="26" rx="6" fill="#B0084D"/>
+<path d="M1200 400.0 l4.5 -7 l4 4 l4 -8 l3.5 11" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linejoin="round"/>
+<text x="1230" y="399.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">CloudWatch</text>
+<rect x="1186" y="432" width="278" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="1195" y="442.0" width="26" height="26" rx="6" fill="#B0084D"/>
+<path d="M1200 460.0 l4.5 -7 l4 4 l4 -8 l3.5 11" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linejoin="round"/>
+<text x="1230" y="459.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">AWS X-Ray</text>
+<rect x="1186" y="492" width="278" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="1195" y="502.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="1201" y="508.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M1201 512.5 H1215" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="1230" y="519.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Amazon ECR</text>
+<rect x="1186" y="552" width="278" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="1195" y="562.0" width="26" height="26" rx="6" fill="#DD344C"/>
+<path d="M1208 567.0 l7 3 v6 c0 4.5 -3.2 7.5 -7 9 c-3.8 -1.5 -7 -4.5 -7 -9 v-6 z" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<text x="1230" y="579.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">AWS IAM</text>
+<path d="M 1446 234 L 1446 248" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="1399.55" y="235" width="40.9" height="13" rx="3" fill="#FFFFFF" opacity="0.95"/>
+<text x="1420" y="244.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.6" fill="#5A6675">fan-out</text>
+<path d="M 1130 262 L 1150 262 L 1150 145 L 1172 145" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="1136.6" y="195.5" width="26.8" height="13" rx="3" fill="#FFFFFF" opacity="0.95"/>
+<text x="1150" y="205.0" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.6" fill="#5A6675">data</text>
+<path d="M 1130 352 L 1150 352 L 1150 209 L 1172 209" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="1131.9" y="272.5" width="36.2" height="13" rx="3" fill="#FFFFFF" opacity="0.95"/>
+<text x="1150" y="282.0" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.6" fill="#5A6675">events</text>
+<path d="M 1130 442 L 1150 442 L 1150 395 L 1172 395" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="1124.85" y="410.5" width="50.300000000000004" height="13" rx="3" fill="#FFFFFF" opacity="0.95"/>
+<text x="1150" y="420.0" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.6" fill="#5A6675">telemetry</text>
+<rect x="250" y="658" width="902" height="118" rx="10" fill="#FAFAFA" stroke="#9AA6B5" stroke-width="1.6" stroke-dasharray="7 5"/>
+<text x="264" y="679" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#5A6675" letter-spacing="0.4">DISASTER RECOVERY · eu-central-1 — DESIGNED, NOT PROVISIONED</text>
+<rect x="266" y="698" width="268" height="52" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="275" y="711.0" width="26" height="26" rx="6" fill="#C925D1"/>
+<ellipse cx="288" cy="718.5" rx="7.5" ry="3.2" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M280.5 718.5 v11 a7.5 3.2 0 0 0 15 0 v-11" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M280.5 724.0 a7.5 3.2 0 0 0 15 0" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="310" y="722.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Aurora Global Database</text>
+<text x="310" y="735.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">read replica</text>
+<rect x="548" y="698" width="256" height="52" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="557" y="711.0" width="26" height="26" rx="6" fill="#7AA116"/>
+<path d="M562 718.0 h16 v12 a8 3.4 0 0 1 -16 0 z" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<ellipse cx="570" cy="718.0" rx="8" ry="3.4" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<text x="592" y="728.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">S3 Cross-Region Repl.</text>
+<rect x="818" y="698" width="318" height="52" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="827" y="711.0" width="26" height="26" rx="6" fill="#ED7100"/>
+<rect x="833" y="717.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M833 721.5 H847" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="862" y="722.0" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Standby ECS Cluster</text>
+<text x="862" y="735.0" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" fill="#5A6675">scaled to zero</text>
+<rect x="1172" y="658" width="306" height="118" rx="10" fill="#FFFFFF" stroke="#9AA6B5" stroke-width="1.6"/>
+<text x="1186" y="679" font-family="Segoe UI,Arial,sans-serif" font-size="12.5" font-weight="700" fill="#5A6675" letter-spacing="0.4">LEGEND</text>
+<rect x="1188" y="692" width="18" height="18" rx="4" fill="#E8F6ED" stroke="#1F8A4C" stroke-width="2.2"/>
+<text x="1214" y="705" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.6" font-weight="400" fill="#1B2430">Provisioned in AWS</text>
+<rect x="1188" y="720" width="18" height="18" rx="4" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<text x="1214" y="733" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.6" font-weight="400" fill="#1B2430">Designed, not provisioned</text>
+<rect x="1188" y="748" width="18" height="18" rx="4" fill="#FAFAFA" stroke="#9AA6B5" stroke-width="1.6" stroke-dasharray="5 4"/>
+<text x="1214" y="761" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.6" font-weight="400" fill="#1B2430">DR region — design only</text>
+<text x="1478" y="816" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" font-weight="400" fill="#5A6675">Figure 1 — SmartRetailX target AWS architecture (eu-west-1)</text>
+</svg>

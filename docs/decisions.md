@@ -99,3 +99,35 @@
   AWS the ECS awslogs driver streams them to CloudWatch Logs, where
   they persist independently of task lifecycle and are queryable via
   Logs Insights across all services.
+## D-010: PCI-DSS scope minimisation by schema design
+- The payments table stores only an opaque gateway token and the last
+  four digits (varchar(4)). No column exists that could hold a PAN,
+  CVV or expiry date.
+- Scope is reduced structurally, not by convention: a defect in
+  application code could not cause card data to be persisted.
+- In a production integration the card number would pass directly from
+  the client to the payment provider and never transit this service at
+  all, keeping it outside PCI-DSS assessment scope entirely.
+## D-011: Test isolation under eventual consistency
+- An end-to-end test asserting an exact stock delta failed
+  intermittently: earlier tests had created orders whose sagas were
+  still in flight when the assertion ran.
+- The fault was in the test's assumption, not the system. Stock is
+  updated by an asynchronous consumer, so a read immediately after an
+  API response does not reflect pending reservations.
+- Resolved by giving the test an exclusive product fixture. This is
+  the same constraint a real client faces: order acceptance and stock
+  reservation are separated in time by design, which is why the
+  client is notified over WebSocket rather than polling.
+## D-012: Erasure placeholder broke the user listing endpoint
+- GDPR erasure replaced the email with a value on the .local
+  special-use domain. That value fails EmailStr validation, so
+  serialising an erased record through the response schema raised an
+  error: a single erased account returned 500 from GET /api/v1/users.
+- Found by an automated security test, not by manual testing — the
+  fault only appears when an erased record is included in a list
+  response.
+- Resolved by using the IANA documentation domain example.com, which
+  is non-routable but syntactically valid.
+- Illustrates why anonymisation values must satisfy the same
+  validation constraints as real data.

@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 690" width="1260" height="690">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8894A5"/></marker><marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#C4314B"/></marker></defs>
+<rect width="1260" height="690" fill="#FFFFFF"/>
+<text x="24" y="36" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#1B2430">SmartRetailX — Microservices and Data Ownership</text>
+<text x="24" y="57" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="400" fill="#5A6675">One database per service · synchronous HTTP and asynchronous events</text>
+<rect x="101" y="88" width="230" height="48" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="109" y="99.0" width="26" height="26" rx="5.98" fill="#C925D1"/>
+<ellipse cx="122" cy="106.5" rx="7.5" ry="3.2" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M114.5 106.5 v11 a7.5 3.2 0 0 0 15 0 v-11" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M114.5 112.0 a7.5 3.2 0 0 0 15 0" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="143" y="110.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">PostgreSQL</text>
+<text x="143" y="123.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">user-db</text>
+<rect x="515" y="88" width="230" height="48" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="523" y="99.0" width="26" height="26" rx="5.98" fill="#C925D1"/>
+<ellipse cx="536" cy="106.5" rx="7.5" ry="3.2" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M528.5 106.5 v11 a7.5 3.2 0 0 0 15 0 v-11" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M528.5 112.0 a7.5 3.2 0 0 0 15 0" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="557" y="110.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">DynamoDB</text>
+<text x="557" y="123.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">products</text>
+<rect x="929" y="88" width="230" height="48" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="937" y="99.0" width="26" height="26" rx="5.98" fill="#C925D1"/>
+<ellipse cx="950" cy="106.5" rx="7.5" ry="3.2" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M942.5 106.5 v11 a7.5 3.2 0 0 0 15 0 v-11" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M942.5 112.0 a7.5 3.2 0 0 0 15 0" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="971" y="110.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">PostgreSQL</text>
+<text x="971" y="123.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">order-db</text>
+<rect x="56" y="172" width="320" height="60" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="64" y="189.0" width="26" height="26" rx="5.98" fill="#ED7100"/>
+<rect x="70" y="195.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M70 199.5 H84" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="98" y="200.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">User Service</text>
+<text x="98" y="213.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">auth · RBAC · JWT issuer</text>
+<path d="M 216 168 L 216 140" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="470" y="172" width="320" height="60" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="478" y="189.0" width="26" height="26" rx="5.98" fill="#ED7100"/>
+<rect x="484" y="195.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M484 199.5 H498" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="512" y="200.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Product Catalogue Service</text>
+<text x="512" y="213.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">catalogue · pricing</text>
+<path d="M 630 168 L 630 140" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="884" y="172" width="320" height="60" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="892" y="189.0" width="26" height="26" rx="5.98" fill="#ED7100"/>
+<rect x="898" y="195.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M898 199.5 H912" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="926" y="200.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Order Service</text>
+<text x="926" y="213.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">saga orchestrator</text>
+<path d="M 1044 168 L 1044 140" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="56" y="296" width="1148" height="96" rx="10" fill="#FDF3F8" stroke="#E7157B" stroke-width="1.6"/>
+<text x="70" y="316" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="700" fill="#E7157B">EVENT BUS</text>
+<rect x="300" y="326" width="280" height="50" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="308" y="338.0" width="26" height="26" rx="5.98" fill="#E7157B"/>
+<circle cx="316" cy="347.0" r="2.8" fill="#FFFFFF"/>
+<circle cx="326" cy="347.0" r="2.8" fill="#FFFFFF"/>
+<circle cx="321" cy="357.0" r="2.8" fill="#FFFFFF"/>
+<path d="M316 347.0 L326 347.0 M316 347.0 L321 357.0 M326 347.0 L321 357.0" stroke="#FFFFFF" stroke-width="1.2" fill="none"/>
+<text x="342" y="349.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Amazon SNS</text>
+<text x="342" y="362.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">topic: smartretailx-events</text>
+<rect x="660" y="326" width="280" height="50" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="668" y="338.0" width="26" height="26" rx="5.98" fill="#E7157B"/>
+<circle cx="676" cy="347.0" r="2.8" fill="#FFFFFF"/>
+<circle cx="686" cy="347.0" r="2.8" fill="#FFFFFF"/>
+<circle cx="681" cy="357.0" r="2.8" fill="#FFFFFF"/>
+<path d="M676 347.0 L686 347.0 M676 347.0 L681 357.0 M686 347.0 L681 357.0" stroke="#FFFFFF" stroke-width="1.2" fill="none"/>
+<text x="702" y="349.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Amazon SQS</text>
+<text x="702" y="362.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">5 queues, each with a DLQ</text>
+<path d="M 580 351 L 660 351" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="598.305" y="336.0" width="43.39" height="13" rx="3" fill="#FFFFFF" opacity="0.96"/>
+<text x="620.0" y="345.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" font-weight="400" fill="#5A6675">fan-out</text>
+<rect x="56" y="456" width="320" height="60" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="64" y="473.0" width="26" height="26" rx="5.98" fill="#ED7100"/>
+<rect x="70" y="479.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M70 483.5 H84" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="98" y="484.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Inventory Service</text>
+<text x="98" y="497.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">stock reserve / release</text>
+<rect x="470" y="456" width="320" height="60" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="478" y="473.0" width="26" height="26" rx="5.98" fill="#ED7100"/>
+<rect x="484" y="479.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M484 483.5 H498" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="512" y="484.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Payment Service</text>
+<text x="512" y="497.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">gateway token only</text>
+<rect x="884" y="456" width="320" height="60" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="892" y="473.0" width="26" height="26" rx="5.98" fill="#ED7100"/>
+<rect x="898" y="479.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M898 483.5 H912" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="926" y="484.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">Notification Service</text>
+<text x="926" y="497.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">WebSocket push</text>
+<rect x="101" y="556" width="230" height="48" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="109" y="567.0" width="26" height="26" rx="5.98" fill="#C925D1"/>
+<ellipse cx="122" cy="574.5" rx="7.5" ry="3.2" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M114.5 574.5 v11 a7.5 3.2 0 0 0 15 0 v-11" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M114.5 580.0 a7.5 3.2 0 0 0 15 0" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="143" y="578.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">DynamoDB</text>
+<text x="143" y="591.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">inventory</text>
+<path d="M 216 516 L 216 552" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="515" y="556" width="230" height="48" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="523" y="567.0" width="26" height="26" rx="5.98" fill="#C925D1"/>
+<ellipse cx="536" cy="574.5" rx="7.5" ry="3.2" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M528.5 574.5 v11 a7.5 3.2 0 0 0 15 0 v-11" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M528.5 580.0 a7.5 3.2 0 0 0 15 0" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="557" y="578.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#1B2430">PostgreSQL</text>
+<text x="557" y="591.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="400" fill="#5A6675">payment-db</text>
+<path d="M 630 516 L 630 552" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<text x="1044" y="584" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" font-weight="400" fill="#5A6675" font-style="italic">stateless — no datastore</text>
+<path d="M 116 236 L 116 292" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<path d="M 296 396 L 296 452" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<path d="M 530 236 L 530 292" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<path d="M 710 396 L 710 452" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<path d="M 944 236 L 944 292" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<path d="M 1124 396 L 1124 452" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<path d="M 296 236 L 296 292" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<path d="M 116 452 L 116 396" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<path d="M 710 236 L 710 292" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<path d="M 530 452 L 530 396" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<path d="M 1124 236 L 1124 292" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<path d="M 944 452 L 944 396" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<text x="78" y="268" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9" font-weight="400" fill="#5A6675">publish</text>
+<text x="258" y="268" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9" font-weight="400" fill="#5A6675">subscribe</text>
+<path d="M 904 172 L 904 152 L 770 152 L 770 168" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="731.8299999999999" y="137" width="210.34000000000003" height="13" rx="3" fill="#FFFFFF" opacity="0.96"/>
+<text x="837" y="146.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" font-weight="400" fill="#5A6675">HTTP GET product · retry + circuit breaker</text>
+<path d="M60 630 H120" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<text x="132" y="634" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="10" font-weight="400" fill="#1B2430">Synchronous HTTP call</text>
+<path d="M330 630 H390" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<text x="402" y="634" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="10" font-weight="400" fill="#1B2430">Asynchronous event</text>
+<text x="600" y="634" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="10" font-weight="400" fill="#1B2430" font-style="italic">No service reads another service's datastore directly.</text>
+<text x="1236" y="676" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" font-weight="400" fill="#5A6675">Figure 2 — Microservices and data ownership</text>
+</svg>

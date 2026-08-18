@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1428 1098" width="1428" height="1098">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8894A5"/></marker><marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#C4314B"/></marker></defs>
+<rect width="1428" height="1098" fill="#FFFFFF"/>
+<text x="24" y="36" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#1B2430">SmartRetailX — Order Placement Saga (success path)</text>
+<text x="24" y="57" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="400" fill="#5A6675">Synchronous calls solid · asynchronous events via SNS/SQS · returns dashed</text>
+<rect x="32" y="96" width="176" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="40" y="106.0" width="26" height="26" rx="5.98" fill="#8C4FFF"/>
+<circle cx="53" cy="115.0" r="4.2" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<path d="M46 127.0 a7 7 0 0 1 14 0" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+<text x="74" y="123.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="10.8" font-weight="600" fill="#1B2430">Client</text>
+<path d="M120.0 142 V1002" stroke="#B9C2CE" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="230" y="96" width="176" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="238" y="106.0" width="26" height="26" rx="5.98" fill="#ED7100"/>
+<rect x="244" y="112.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M244 116.5 H258" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="272" y="123.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="10.8" font-weight="600" fill="#1B2430">Order Service</text>
+<path d="M318.0 142 V1002" stroke="#B9C2CE" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="428" y="96" width="176" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="436" y="106.0" width="26" height="26" rx="5.98" fill="#ED7100"/>
+<rect x="442" y="112.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M442 116.5 H456" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="470" y="123.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="10.8" font-weight="600" fill="#1B2430">Catalogue Service</text>
+<path d="M516.0 142 V1002" stroke="#B9C2CE" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="626" y="96" width="176" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="634" y="106.0" width="26" height="26" rx="5.98" fill="#E7157B"/>
+<circle cx="642" cy="115.0" r="2.8" fill="#FFFFFF"/>
+<circle cx="652" cy="115.0" r="2.8" fill="#FFFFFF"/>
+<circle cx="647" cy="125.0" r="2.8" fill="#FFFFFF"/>
+<path d="M642 115.0 L652 115.0 M642 115.0 L647 125.0 M652 115.0 L647 125.0" stroke="#FFFFFF" stroke-width="1.2" fill="none"/>
+<text x="668" y="123.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="10.8" font-weight="600" fill="#1B2430">Event Bus</text>
+<path d="M714.0 142 V1002" stroke="#B9C2CE" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="824" y="96" width="176" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="832" y="106.0" width="26" height="26" rx="5.98" fill="#ED7100"/>
+<rect x="838" y="112.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M838 116.5 H852" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="866" y="123.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="10.8" font-weight="600" fill="#1B2430">Inventory Service</text>
+<path d="M912.0 142 V1002" stroke="#B9C2CE" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="1022" y="96" width="176" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="1030" y="106.0" width="26" height="26" rx="5.98" fill="#ED7100"/>
+<rect x="1036" y="112.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M1036 116.5 H1050" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="1064" y="123.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="10.8" font-weight="600" fill="#1B2430">Payment Service</text>
+<path d="M1110.0 142 V1002" stroke="#B9C2CE" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="1220" y="96" width="176" height="46" rx="7" fill="#FFFFFF" stroke="#B9C2CE" stroke-width="1.3"/>
+<rect x="1228" y="106.0" width="26" height="26" rx="5.98" fill="#ED7100"/>
+<rect x="1234" y="112.0" width="14" height="14" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+<path d="M1234 116.5 H1248" fill="none" stroke="#FFFFFF" stroke-width="1.1" opacity="0.85"/>
+<text x="1262" y="123.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="10.8" font-weight="600" fill="#1B2430">Notification Svc</text>
+<path d="M1308.0 142 V1002" stroke="#B9C2CE" stroke-width="1.2" stroke-dasharray="4 4"/>
+<path d="M 127.0 184 L 311.0 184" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="111.1" y="168" width="215.8" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="219.0" y="179" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">1. POST /api/v1/orders  ·  Idempotency-Key</text>
+<path d="M 325.0 228 L 509.0 228" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="343.4" y="212" width="147.20000000000002" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="417.0" y="223" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">2. GET /api/v1/products/{id}</text>
+<path d="M 509.0 272 L 325.0 272" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<rect x="343.4" y="256" width="147.20000000000002" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="417.0" y="267" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">3. 200  product name + price</text>
+<rect x="328.0" y="305" width="193.0" height="22" rx="4" fill="#F4F6F9" stroke="#8894A5" stroke-width="1.1"/>
+<text x="337.0" y="319.5" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">4. persist order  ·  status PENDING</text>
+<path d="M 311.0 360 L 127.0 360" fill="none" stroke="#8894A5" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+<rect x="179.7" y="344" width="78.60000000000001" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="219.0" y="355" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">5. 201 Created</text>
+<path d="M 325.0 404 L 707.0 404" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="452.2" y="388" width="127.60000000000001" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="516.0" y="399" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">6. publish  OrderCreated</text>
+<path d="M 721.0 448 L 905.0 448" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="771.25" y="432" width="83.5" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="813.0" y="443" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">7. OrderCreated</text>
+<rect x="922.0" y="481" width="223.0" height="22" rx="4" fill="#F4F6F9" stroke="#8894A5" stroke-width="1.1"/>
+<text x="931.0" y="495.5" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">8. conditional update  ·  available − qty</text>
+<path d="M 905.0 536 L 721.0 536" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="746.75" y="520" width="132.5" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="813.0" y="531" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">9. publish  StockReserved</text>
+<path d="M 707.0 580 L 325.0 580" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="469.35" y="564" width="93.30000000000001" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="516.0" y="575" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">10. StockReserved</text>
+<path d="M 325.0 624 L 707.0 624" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="439.95" y="608" width="152.10000000000002" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="516.0" y="619" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">11. publish  PaymentRequested</text>
+<path d="M 721.0 668 L 1103.0 668" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="858.0" y="652" width="108.0" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="912.0" y="663" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">12. PaymentRequested</text>
+<rect x="1120.0" y="701" width="223.0" height="22" rx="4" fill="#F4F6F9" stroke="#8894A5" stroke-width="1.1"/>
+<text x="1129.0" y="715.5" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">13. gateway token stored  ·  no card data</text>
+<path d="M 1103.0 756 L 721.0 756" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="835.95" y="740" width="152.10000000000002" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="912.0" y="751" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">14. publish  PaymentSucceeded</text>
+<path d="M 707.0 800 L 325.0 800" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="462.0" y="784" width="108.0" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="516.0" y="795" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">15. PaymentSucceeded</text>
+<rect x="328.0" y="833" width="123.0" height="22" rx="4" fill="#F4F6F9" stroke="#8894A5" stroke-width="1.1"/>
+<text x="337.0" y="847.5" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">16. status  CONFIRMED</text>
+<path d="M 325.0 888 L 707.0 888" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="444.85" y="872" width="142.3" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="516.0" y="883" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">17. publish  OrderConfirmed</text>
+<path d="M 721.0 932 L 1301.0 932" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="910.45" y="916" width="201.10000000000002" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="1011.0" y="927" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">18. all events  (filtered subscription)</text>
+<path d="M 1301.0 976 L 127.0 976" fill="none" stroke="#8894A5" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="664.9" y="960" width="98.2" height="14" rx="3" fill="#FFFFFF" opacity="0.97"/>
+<text x="714.0" y="971" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.3" font-weight="500" fill="#5A6675">19. WebSocket push</text>
+<text x="32" y="1046" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="10" font-weight="400" fill="#5A6675" font-style="italic">The API responds 201 before the saga completes: order state advances asynchronously and is pushed to the client over WebSocket.</text>
+<text x="1404" y="1082" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9" font-weight="400" fill="#5A6675">Figure 3 — Order placement saga, success path</text>
+</svg>
