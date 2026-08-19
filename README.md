@@ -374,7 +374,7 @@ smartretailx/
 
 ## Design decisions
 
-`docs/decisions.md` records sixteen decisions taken during development, each
+`docs/decisions.md` records eighteen decisions taken during development, each
 with the problem encountered, the resolution, and the trade-off accepted.
 Several document defects found and fixed:
 

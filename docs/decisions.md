@@ -1,206 +1,292 @@
 # Design Decisions Log
 
+What follows is a record of the decisions that shaped SmartRetailX, and the
+problems that forced some of them. Thirteen of the eighteen entries are
+defects — things that broke, why they broke, and what fixed them. The rest
+are choices made deliberately, with the alternative that lost out.
+
+| # | Decision | Type |
+|---|----------|------|
+| D-001 | Slim base image; vulnerability scan and remediation | Choice |
+| D-002 | Explicit image tags in Compose for traceability | Choice |
+| D-003 | Exact dependency pinning for reproducible builds | Choice |
+| D-004 | Private key mounted at runtime, not baked into the image | Defect |
+| D-005 | RS256 over HS256 for token signing | Choice |
+| D-006 | LocalStack for AWS emulation; a licence change broke the build | Defect |
+| D-007 | Idempotency only where duplication actually causes harm | Choice |
+| D-008 | Redundant identifier in the inventory upsert payload | Defect |
+| D-009 | Container logs vanish with the container | Defect |
+| D-010 | PCI-DSS scope minimised by schema, not by convention | Choice |
+| D-011 | Test isolation under eventual consistency | Defect |
+| D-012 | GDPR erasure placeholder broke the user listing endpoint | Defect |
+| D-013 | Fixing the code was not enough; the bad data was still there | Defect |
+| D-014 | Scaling comparison ruined by a bottleneck somewhere else | Defect |
+| D-015 | A fixed host port made horizontal scaling impossible | Defect |
+| D-016 | The connection pool was the constraint all along | Finding |
+| D-017 | Endpoint configuration stopped the service starting in AWS | Defect |
+| D-018 | An incomplete stored item came back as a 500, not a 422 | Defect |
+
+---
+
 ## D-001: Container base image and vulnerability remediation
-- Chose python:3.12-slim over python:3.12 (full) to reduce image
-  size and attack surface.
-- Docker Scout scan of v1.0.0 reported 57 vulnerabilities, 7 of
-  which originated in the application dependency layer
-  (3 high, 3 medium, 1 low - all in starlette 0.41.3).
-- Remediated by upgrading FastAPI and Uvicorn, rebuilt as v1.0.1.
-- Result: application-layer findings reduced to 0. Image size
-  reduced from 243.91 MB to 212.34 MB.
-- Residual 50 findings originate in the Debian base layer and
-  cannot be patched at application level. Mitigated by non-root
-  container execution. Production remediation would be rebasing
-  onto a distroless image with scheduled rebuilds.
+
+The services build on `python:3.12-slim` rather than the full image, which
+keeps both the download size and the attack surface smaller. Scanning the
+first build with Docker Scout returned 57 vulnerabilities. Only seven of
+those came from the application's own dependencies — three high, three
+medium and one low, all in `starlette 0.41.3` — and those seven were the
+only ones worth acting on.
+
+Upgrading FastAPI and Uvicorn cleared all seven and dropped the image from
+243.91 MB to 212.34 MB along the way. The remaining 50 findings live in the
+Debian base layer, where nothing in the Dockerfile can reach them. Running
+the container as a non-root user limits what an attacker could do with them;
+properly fixing them would mean rebasing onto a distroless image and
+rebuilding on a schedule.
+
+The distinction matters more than the count. Seven were fixable and were
+fixed; fifty were not, and pretending otherwise would be dishonest.
+
 ## D-002: Explicit image tagging in Compose
-- Compose configured with both image: and build: so that the
-  built artefact carries an explicit semantic version tag.
-- Ensures the running container is traceable to a specific scanned
-  image, rather than an anonymous project-named build.
-- Supports rollback and supply-chain traceability.
+
+Compose specifies both `image:` and `build:`, so every build comes out
+carrying a real version tag instead of an anonymous project-named one. That
+means the container running right now can be traced back to the exact image
+that was scanned — which is what makes both rollback and any later
+supply-chain question answerable.
+
 ## D-003: Exact dependency pinning
-- All dependencies pinned to exact versions (==) rather than
-  ranges, so builds are byte-reproducible and a given image can be
-  rebuilt identically at any later date.
-- Trade-off: pinned versions do not pick up security patches
-  automatically. Mitigated by Docker Scout scanning, which surfaces
-  outdated packages, and by a deliberate upgrade-and-retag cycle
-  (see D-001).
+
+Every dependency is pinned to an exact version, so the same image can be
+rebuilt identically months from now. The cost is that security patches no
+longer arrive on their own. Docker Scout catches outdated packages during
+scanning, and the deliberate upgrade-and-retag cycle in D-001 is how they
+get applied — but it is a manual step, and worth naming as one.
+
 ## D-004: Private key mounting and container user permissions
-- JWT signing key mounted read-only at runtime rather than copied
-  into the image, so the secret is never baked into a distributable
-  artefact.
-- Initial deployment failed with PermissionError: the key was
-  generated 0600 root-owned while the container runs as a non-root
-  user - the least-privilege control working as intended.
-- Resolved by assigning a fixed UID/GID to the application user and
-  granting group read on the key file, preserving both non-root
-  execution and the read-only mount.
-- In AWS this problem does not arise: the key would be retrieved from
-  Secrets Manager by the task at launch and never exist as a file on
-  a mounted volume.
+
+The JWT signing key is mounted read-only when the container starts, rather
+than copied in during the build. A key baked into an image is a key that
+leaks the moment the image is pushed anywhere.
+
+The first attempt failed with a `PermissionError`, and the cause turned out
+to be two good decisions colliding. OpenSSL generates private keys as `0600`
+owned by root. The container deliberately runs as a non-root user. So the
+process could not read the file it needed — the least-privilege control
+doing exactly what it was put there to do.
+
+Giving the application user a fixed UID and GID and granting group read on
+the key resolved it without giving up either non-root execution or the
+read-only mount. None of this arises in AWS, where the task pulls the key
+from Secrets Manager at launch and it never touches a filesystem at all.
+
 ## D-005: RS256 asymmetric token signing
-- JWTs signed with RS256 rather than HS256. HS256 uses one shared
-  secret for both signing and verification, so any service able to
-  verify a token could also forge one.
-- With RS256 only the User Service holds the private key. Other
-  services verify using the public key published at
-  /.well-known/jwks.json, with no shared secret distributed.
-- Tokens carry a kid header so multiple public keys can be published
-  simultaneously, enabling key rotation without invalidating tokens
-  signed by the previous key.
-- Access tokens expire in 15 minutes to limit the exposure window
-  from a stolen token; refresh tokens last 7 days.
-- Decoding uses an explicit algorithm allow-list, preventing the
-  "alg: none" and algorithm-confusion attack classes.
+
+HS256 uses one secret for both signing and verifying. In a system where six
+services all need to verify tokens, that means six services all able to
+forge them. RS256 splits the two: the User Service holds the private key and
+is the only thing that can issue a token, while everyone else verifies using
+the public key published at `/.well-known/jwks.json`. No shared secret goes
+anywhere.
+
+Tokens carry a `kid` in the header so more than one public key can be
+published at once, which is what makes key rotation possible without
+invalidating every token already in circulation. Access tokens last fifteen
+minutes to keep the damage window small if one is stolen; refresh tokens
+last a week. Verification uses an explicit list of permitted algorithms
+rather than trusting whatever the token claims — that one line is what
+closes off the `alg: none` and algorithm-confusion attacks.
+
 ## D-006: Local AWS emulation and third-party dependency risk
-- LocalStack chosen to emulate DynamoDB, SQS and SNS locally so that
-  application code uses the real AWS SDK (boto3) and is portable to
-  AWS by changing a single endpoint environment variable.
-- Encountered a licensing change: as of the 2026.03 release the
-  previously free community image was consolidated into a single
-  authenticated image, causing the container to exit on startup.
-- Resolved by registering for the free non-commercial tier and
-  injecting the auth token as an environment variable, and by pinning
-  the image to an explicit version rather than :latest.
-- Illustrates a real supply-chain risk in distributed architectures:
-  a third-party dependency changed its access model and broke the
-  build. Pinning versions and avoiding :latest limits exposure to
-  unannounced upstream changes.
+
+LocalStack lets the application call the real AWS SDK against a local
+endpoint, so the code that runs in development is the code that runs in
+production, give or take one environment variable. That portability was the
+whole reason for choosing it.
+
+Then it stopped working. As of the 2026.03 release, LocalStack folded its
+free community image into a single authenticated one, and the container
+started exiting immediately with a licence error. Registering for the free
+non-commercial tier and passing an auth token fixed it, and the image is now
+pinned to an explicit version instead of `:latest`.
+
+Worth recording because it is a supply-chain risk in miniature: a third
+party changed how its software could be accessed, and a working build broke
+without anything in the project changing. Pinning versions limits how often
+that can happen, but it cannot prevent it.
+
 ## D-007: Idempotency scope
-- POST /api/v1/products is non-idempotent by REST convention: repeated
-  submissions create separate products, and SKU uniqueness is not
-  enforced at the datastore.
-- Accepted as a known limitation for the catalogue, where duplicates
-  are a data-quality issue rather than a correctness failure.
-- Idempotency keys ARE implemented for order creation and payment,
-  where a duplicated request would result in a double charge. Effort
-  is directed at the operations where non-idempotency causes harm.
-- Production remediation for the catalogue would be a conditional
-  write against a uniqueness index on sku.
-## D-008: Redundant identifier in inventory upsert payload
-- PUT /api/v1/inventory/{product_id} accepts product_id in both the
-  path and the request body. Only the path value is used.
-- Identified during testing when a mismatched body silently had no
-  effect, creating stock against the wrong product.
-- A duplicated identifier with no validation is an API design fault:
-  it permits a request whose meaning is ambiguous.
-- Remediation would be to remove product_id from the request schema,
-  or to return 400 when the two disagree.
+
+`POST /api/v1/products` is not idempotent, and SKU uniqueness is not enforced
+in the datastore. Submitting the same product twice creates two products.
+That is a data-quality problem rather than a correctness one, so it was left
+alone.
+
+Order creation and payment are a different matter — a duplicate there means
+charging someone twice — and both require an idempotency key. The effort went
+where non-idempotency actually causes harm. Fixing the catalogue properly
+would mean a conditional write against a uniqueness index on `sku`.
+
+## D-008: Redundant identifier in the inventory upsert payload
+
+`PUT /api/v1/inventory/{product_id}` takes `product_id` in the path and again
+in the request body, but only ever uses the path value. This surfaced during
+testing when a mismatched body silently did nothing, and stock ended up
+against the wrong product.
+
+An identifier that appears twice with no check that the two agree lets a
+client send a request whose meaning is genuinely ambiguous. The right fix is
+to drop it from the request schema, or reject the request with a 400 when
+they disagree.
+
 ## D-009: Container logs are ephemeral
-- Log evidence for one transaction was lost when a service container
-  was recreated: Docker retains logs per container instance, not per
-  service.
-- Demonstrates why centralised log aggregation is required in a
-  distributed system rather than optional. Logs must be shipped off
-  the compute instance as they are written.
-- Locally, stdout JSON logs are collected by the Docker daemon; in
-  AWS the ECS awslogs driver streams them to CloudWatch Logs, where
-  they persist independently of task lifecycle and are queryable via
-  Logs Insights across all services.
+
+Log evidence for a transaction disappeared when a service container was
+recreated. Docker keeps logs per container instance, not per service, so
+replacing a container throws its history away.
+
+This is the argument for centralised log aggregation stated as a fact rather
+than a principle: logs have to leave the compute instance as they are
+written, because the instance will not be there later. In AWS the ECS
+`awslogs` driver streams to CloudWatch Logs, where records outlive the task
+and stay queryable across every service at once.
+
 ## D-010: PCI-DSS scope minimisation by schema design
-- The payments table stores only an opaque gateway token and the last
-  four digits (varchar(4)). No column exists that could hold a PAN,
-  CVV or expiry date.
-- Scope is reduced structurally, not by convention: a defect in
-  application code could not cause card data to be persisted.
-- In a production integration the card number would pass directly from
-  the client to the payment provider and never transit this service at
-  all, keeping it outside PCI-DSS assessment scope entirely.
+
+The payments table holds an opaque gateway token and the last four digits,
+and the last four digits sit in a `varchar(4)`. There is no column capable of
+storing a card number, a CVV or an expiry date. A bug in the application
+could not persist card data even by accident, because there is nowhere to put
+it.
+
+That is a stronger position than a policy of not storing card data, because
+it does not depend on anyone remembering the policy. In a real integration
+the card number would travel from the browser to the payment provider
+directly and never pass through this service at all, which takes it out of
+PCI-DSS assessment scope entirely.
+
 ## D-011: Test isolation under eventual consistency
-- An end-to-end test asserting an exact stock delta failed
-  intermittently: earlier tests had created orders whose sagas were
-  still in flight when the assertion ran.
-- The fault was in the test's assumption, not the system. Stock is
-  updated by an asynchronous consumer, so a read immediately after an
-  API response does not reflect pending reservations.
-- Resolved by giving the test an exclusive product fixture. This is
-  the same constraint a real client faces: order acceptance and stock
-  reservation are separated in time by design, which is why the
-  client is notified over WebSocket rather than polling.
+
+An end-to-end test checking an exact stock figure failed intermittently.
+Earlier tests in the same run had placed orders whose sagas were still
+working through the queue when the assertion ran, so the numbers moved
+underneath it.
+
+The system was behaving correctly; the test was wrong. Stock is adjusted by
+an asynchronous consumer, so reading it immediately after an API response
+tells you nothing about reservations still in flight. Giving the test its own
+product fixture fixed it. The same constraint applies to real clients, which
+is precisely why they are notified over WebSocket instead of polling for an
+answer that may not exist yet.
+
 ## D-012: Erasure placeholder broke the user listing endpoint
-- GDPR erasure replaced the email with a value on the .local
-  special-use domain. That value fails EmailStr validation, so
-  serialising an erased record through the response schema raised an
-  error: a single erased account returned 500 from GET /api/v1/users.
-- Found by an automated security test, not by manual testing — the
-  fault only appears when an erased record is included in a list
-  response.
-- Resolved by using the IANA documentation domain example.com, which
-  is non-routable but syntactically valid.
-- Illustrates why anonymisation values must satisfy the same
-  validation constraints as real data.
+
+The GDPR erasure endpoint replaced the user's email with an address on the
+`.local` domain. `.local` is reserved by IANA and fails `EmailStr`
+validation, so any attempt to serialise an erased record through the response
+schema raised an error — and one erased account was enough to make
+`GET /api/v1/users` return 500 for everybody.
+
+An automated security test caught it, which manual testing would not have,
+because the fault only appears when an erased record happens to be included
+in a list response. Switching to `example.com` — also non-routable, but
+syntactically valid — resolved it.
+
 ## D-013: Data repair required after fixing the erasure defect
-- Correcting the erasure placeholder did not restore the listing
-  endpoint: records written by the defective version remained in the
-  database and continued to fail response validation.
-- A code fix alone is insufficient when a defect has already written
-  invalid data. A migration was required to repair existing rows.
-- Reinforces why anonymisation values must satisfy the same validation
-  constraints as live data: an invalid value written once persists
-  until explicitly corrected.
+
+Fixing the code did not fix the endpoint. Records written by the broken
+version were still sitting in the database, still failing validation, still
+returning 500. A migration was needed to repair them.
+
+Obvious in hindsight, but worth stating: once a defect has written bad data,
+the code fix only stops it happening again. Everything already written stays
+broken until something goes back and corrects it.
+
 ## D-014: Scaling comparison invalidated by an unrelated bottleneck
-- The first scalability comparison registered a distinct account per
-  simulated user. At 200 concurrent users this issued roughly 400
-  Argon2id hashes simultaneously, saturating the User Service:
-  registration reached 145s and login 181s, and the health check
-  failed, preventing the scale-up step from running at all.
-- The measurement was therefore invalid: the bottleneck had moved to
-  the User Service, so scaling the Order Service could not have shown
-  any effect.
-- Corrected by issuing a single shared token at test start, isolating
-  the order path as the component under test, and reducing
-  concurrency to 100 to remain below the saturation point identified
-  by the stress test.
-- Demonstrates that a load profile must be designed around the
-  component under measurement: an incidental cost elsewhere in the
-  system can dominate and invalidate the result.
+
+The first attempt at the scalability comparison registered a separate account
+for every simulated user. At 200 concurrent users that meant roughly 400
+Argon2id hashes running at once, and Argon2id is memory-hard by design.
+The User Service buckled — registration took 145 seconds, login 181, and its
+health check failed, which meant the scale-up step never even ran.
+
+The measurement was worthless, because the bottleneck had moved somewhere
+the test was not looking. Scaling the Order Service could not have shown
+anything while the User Service was the thing falling over.
+
+Issuing one shared token at test start removed the hashing entirely, and
+dropping to 100 users kept the run below the saturation point the stress test
+had already identified. The lesson is that a load profile has to be built
+around whatever is being measured; an incidental cost elsewhere will quietly
+take over the result.
+
 ## D-015: Fixed host port prevented horizontal scaling
-- The order service published a fixed host port (8003:8000). Scaling
-  beyond one instance failed with "port is already allocated": only one
-  container can bind a given host port.
-- Even had the containers started, all client traffic addressed
-  localhost:8003 and would have reached a single instance, so no load
-  distribution was possible.
-- Resolved by removing the published port and placing nginx in front as
-  a load balancer, using Docker's embedded DNS to resolve all instances
-  of the service and least-connections routing to account for variable
-  request cost.
-- This is the same constraint that makes fixed host ports unusable in
-  container orchestration generally, and why ECS and Kubernetes assign
-  dynamic ports and register targets with a load balancer rather than
-  publishing ports directly.
+
+The order service published a fixed host port, `8003:8000`. Scaling past one
+instance failed immediately with "port is already allocated", because only
+one container can bind a given host port. Even if the containers had started,
+every client request went to `localhost:8003`, which resolves to exactly one
+of them — so there would have been no distribution regardless.
+
+Removing the published port and putting nginx in front as a load balancer
+fixed it, using Docker's embedded DNS to find every instance of the service.
+
+This is the same reason fixed host ports are unusable in container
+orchestration generally, and why ECS and Kubernetes assign ports dynamically
+and register targets with a load balancer instead of publishing them
+directly. The local problem and the production design turn out to have the
+same cause.
+
 ## D-016: Connection pool capacity confirmed as the scaling constraint
-- Scaling the Order Service 1 to 3 behind nginx raised throughput
-  3.5 to 72.6 req/s and cut failures from 35.2% to zero.
-- The superlinear gain confirms the single-instance run was saturated
-  rather than merely slow: blocked requests held connections for the
-  full 60s gateway timeout.
-- Endpoints using the PostgreSQL pool improved by 98-99.9%; DynamoDB
-  reads regressed 80-97% at p95 under the higher aggregate load,
-  showing the remaining constraint is shared host CPU.
-- Confirms the stress-test diagnosis and validates horizontal scaling
-  of the application tier as the correct remediation.
+
+Scaling the Order Service from one instance to three behind nginx took
+throughput from 3.5 to 72.6 requests per second and dropped the failure rate
+from 35.2% to zero.
+
+A twentyfold gain from tripling the instances should not be possible, and the
+fact that it happened says the single-instance run was not slow but
+saturated. Blocked requests were holding database connections for the full
+60-second gateway timeout, so most of the capacity was being spent on
+requests that would never complete.
+
+The endpoints using the PostgreSQL pool improved by 98–99.9%. DynamoDB reads,
+which were never the problem, got 80–97% *worse* at p95 — because the system
+was now processing twenty times more traffic on the same host. That confirms
+what the stress test suggested, and identifies the next constraint as shared
+host CPU rather than application concurrency.
+
 ## D-017: Endpoint configuration prevented deployment to real AWS
-- The catalogue service always passed endpoint_url to boto3, defaulting
-  to the LocalStack address. In AWS the container failed during startup
-  and ECS restarted it repeatedly (uvicorn exit code 3).
-- Fixed by passing endpoint_url only when explicitly configured, so
-  boto3 resolves the regional endpoint by default.
-- The same image now runs against LocalStack locally and managed AWS
-  services in deployment, differing only by one environment variable.
-- Found only by deploying: local emulation validated the SDK calls but
-  not the configuration path used in production.
+
+The catalogue service always passed `endpoint_url` to boto3, and its default
+pointed at LocalStack. In AWS there is no host by that name, so the container
+died during startup and ECS kept restarting it — four stopped tasks before
+the cause became clear, with uvicorn exiting 3 each time.
+
+Passing `endpoint_url` only when it is explicitly set fixed it, letting boto3
+resolve the regional endpoint on its own. The same image now runs against
+LocalStack locally and managed AWS services in deployment, differing by one
+environment variable.
+
+Only deploying found this. Local emulation had validated every SDK call
+correctly, but never exercised the configuration path that production
+actually uses — which is a fair summary of what emulation can and cannot
+prove.
+
 ## D-018: Incomplete stored item surfaced as a 500 rather than a 422
-- A DynamoDB item written directly via the CLI omitted fields required
-  by the response schema. The read returned 500 Internal Server Error
-  rather than a diagnostic message.
-- The schemaless datastore accepts any item shape; validation occurs
-  only at serialisation time, so malformed data is detected on read
-  rather than on write.
-- Illustrates a genuine trade-off in schemaless storage: flexibility on
-  write shifts the integrity burden to the application. A production
-  system would validate on the write path and treat unserialisable
-  stored records as 500-class defects requiring data repair, as
-  occurred earlier with the erasure placeholder (D-012).
+
+An item written directly into DynamoDB via the CLI left out five fields the
+response schema requires. Reading it back returned a 500 with no useful
+message, and the actual cause — five missing fields — was only visible in
+CloudWatch Logs.
+
+DynamoDB accepted the item quite happily, because a schemaless store has no
+opinion about what an item should contain. Validation only happens when the
+application tries to serialise it, so bad data is caught on read rather than
+on write.
+
+That is the real trade-off in schemaless storage: the flexibility is genuine,
+but the integrity burden moves entirely to the application. A production
+system would validate on the way in and treat an unserialisable stored record
+as a defect requiring data repair — which is exactly what happened with the
+erasure placeholder in D-012, arriving at the same conclusion from a
+different direction.
