@@ -5,18 +5,17 @@ from config import settings
 
 
 def dynamodb_resource():
-    """
-    DynamoDB client.
+    """DynamoDB client.
 
-    endpoint_url points at LocalStack locally. Removing that single
-    argument makes this identical to production AWS code - the SDK
-    calls, table definitions and queries are unchanged.
+    endpoint_url is only passed when explicitly configured. Against real
+    AWS it is omitted entirely and boto3 resolves the regional endpoint,
+    so the identical image runs locally against LocalStack and in AWS
+    against the managed service.
     """
-    return boto3.resource(
-        "dynamodb",
-        endpoint_url=settings.aws_endpoint_url,
-        region_name=settings.aws_default_region,
-    )
+    kwargs = {"region_name": settings.aws_default_region}
+    if settings.aws_endpoint_url:
+        kwargs["endpoint_url"] = settings.aws_endpoint_url
+    return boto3.resource("dynamodb", **kwargs)
 
 
 def init_table():

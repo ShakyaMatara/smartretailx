@@ -146,3 +146,36 @@
   container orchestration generally, and why ECS and Kubernetes assign
   dynamic ports and register targets with a load balancer rather than
   publishing ports directly.
+## D-016: Connection pool capacity confirmed as the scaling constraint
+- Scaling the Order Service 1 to 3 behind nginx raised throughput
+  3.5 to 72.6 req/s and cut failures from 35.2% to zero.
+- The superlinear gain confirms the single-instance run was saturated
+  rather than merely slow: blocked requests held connections for the
+  full 60s gateway timeout.
+- Endpoints using the PostgreSQL pool improved by 98-99.9%; DynamoDB
+  reads regressed 80-97% at p95 under the higher aggregate load,
+  showing the remaining constraint is shared host CPU.
+- Confirms the stress-test diagnosis and validates horizontal scaling
+  of the application tier as the correct remediation.
+## D-017: Endpoint configuration prevented deployment to real AWS
+- The catalogue service always passed endpoint_url to boto3, defaulting
+  to the LocalStack address. In AWS the container failed during startup
+  and ECS restarted it repeatedly (uvicorn exit code 3).
+- Fixed by passing endpoint_url only when explicitly configured, so
+  boto3 resolves the regional endpoint by default.
+- The same image now runs against LocalStack locally and managed AWS
+  services in deployment, differing only by one environment variable.
+- Found only by deploying: local emulation validated the SDK calls but
+  not the configuration path used in production.
+## D-018: Incomplete stored item surfaced as a 500 rather than a 422
+- A DynamoDB item written directly via the CLI omitted fields required
+  by the response schema. The read returned 500 Internal Server Error
+  rather than a diagnostic message.
+- The schemaless datastore accepts any item shape; validation occurs
+  only at serialisation time, so malformed data is detected on read
+  rather than on write.
+- Illustrates a genuine trade-off in schemaless storage: flexibility on
+  write shifts the integrity burden to the application. A production
+  system would validate on the write path and treat unserialisable
+  stored records as 500-class defects requiring data repair, as
+  occurred earlier with the erasure placeholder (D-012).

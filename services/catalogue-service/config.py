@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     service_name: str = "catalogue-service"
 
-    aws_endpoint_url: str = "http://localstack:4566"
+    aws_endpoint_url: str = ""
     aws_default_region: str = "eu-west-1"
     products_table: str = "products"
 
