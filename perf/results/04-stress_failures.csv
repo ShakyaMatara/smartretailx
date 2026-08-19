@@ -1,0 +1,10 @@
+Method,Name,Error,Occurrences,First Seen,Last Seen
+GET,GET /products,RemoteDisconnected('Remote end closed connection without response'),2,2026-08-18T20:22:01Z,2026-08-18T20:22:09Z
+GET,GET /orders,HTTPError('500 Server Error: Internal Server Error for url: GET /orders'),137,2026-08-18T20:22:27Z,2026-08-18T20:27:33Z
+GET,GET /users/me,HTTPError('500 Server Error: Internal Server Error for url: GET /users/me'),27,2026-08-18T20:22:56Z,2026-08-18T20:23:56Z
+POST,POST /orders,HTTPError('500 Server Error: Internal Server Error for url: POST /orders'),235,2026-08-18T20:22:27Z,2026-08-18T20:27:35Z
+POST,POST /auth/login,HTTPError('500 Server Error: Internal Server Error for url: POST /auth/login'),25,2026-08-18T20:22:55Z,2026-08-18T20:23:56Z
+POST,POST /auth/login,RemoteDisconnected('Remote end closed connection without response'),1,2026-08-18T20:22:56Z,2026-08-18T20:22:56Z
+POST,POST /users/register,HTTPError('500 Server Error: Internal Server Error for url: POST /users/register'),18,2026-08-18T20:22:56Z,2026-08-18T20:23:26Z
+POST,POST /auth/login,HTTPError('401 Client Error: Unauthorized for url: POST /auth/login'),11,2026-08-18T20:23:57Z,2026-08-18T20:23:57Z
+GET,GET /users/me,RemoteDisconnected('Remote end closed connection without response'),1,2026-08-18T20:22:00Z,2026-08-18T20:22:00Z

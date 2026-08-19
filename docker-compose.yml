@@ -110,6 +110,11 @@ services:
     build:
       context: .
       dockerfile: ./services/order-service/Dockerfile
+    # A fixed host port prevents horizontal scaling: only one container
+    # can bind a given host port. Scaling was demonstrated separately by
+    # removing this mapping and routing through an nginx load balancer
+    # (see Appendix). The direct mapping is retained for single-instance
+    # testing and development.
     ports:
       - "8003:8000"
     environment:
@@ -138,6 +143,7 @@ services:
       start_period: 15s
     networks:
       - smartretailx-net
+
   inventory-service:
     image: smartretailx/inventory-service:1.0.0
     build:

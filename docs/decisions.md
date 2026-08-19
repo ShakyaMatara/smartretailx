@@ -131,3 +131,18 @@
   is non-routable but syntactically valid.
 - Illustrates why anonymisation values must satisfy the same
   validation constraints as real data.
+## D-015: Fixed host port prevented horizontal scaling
+- The order service published a fixed host port (8003:8000). Scaling
+  beyond one instance failed with "port is already allocated": only one
+  container can bind a given host port.
+- Even had the containers started, all client traffic addressed
+  localhost:8003 and would have reached a single instance, so no load
+  distribution was possible.
+- Resolved by removing the published port and placing nginx in front as
+  a load balancer, using Docker's embedded DNS to resolve all instances
+  of the service and least-connections routing to account for variable
+  request cost.
+- This is the same constraint that makes fixed host ports unusable in
+  container orchestration generally, and why ECS and Kubernetes assign
+  dynamic ports and register targets with a load balancer rather than
+  publishing ports directly.
