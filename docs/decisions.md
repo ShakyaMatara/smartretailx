@@ -131,6 +131,31 @@
   is non-routable but syntactically valid.
 - Illustrates why anonymisation values must satisfy the same
   validation constraints as real data.
+## D-013: Data repair required after fixing the erasure defect
+- Correcting the erasure placeholder did not restore the listing
+  endpoint: records written by the defective version remained in the
+  database and continued to fail response validation.
+- A code fix alone is insufficient when a defect has already written
+  invalid data. A migration was required to repair existing rows.
+- Reinforces why anonymisation values must satisfy the same validation
+  constraints as live data: an invalid value written once persists
+  until explicitly corrected.
+## D-014: Scaling comparison invalidated by an unrelated bottleneck
+- The first scalability comparison registered a distinct account per
+  simulated user. At 200 concurrent users this issued roughly 400
+  Argon2id hashes simultaneously, saturating the User Service:
+  registration reached 145s and login 181s, and the health check
+  failed, preventing the scale-up step from running at all.
+- The measurement was therefore invalid: the bottleneck had moved to
+  the User Service, so scaling the Order Service could not have shown
+  any effect.
+- Corrected by issuing a single shared token at test start, isolating
+  the order path as the component under test, and reducing
+  concurrency to 100 to remain below the saturation point identified
+  by the stress test.
+- Demonstrates that a load profile must be designed around the
+  component under measurement: an incidental cost elsewhere in the
+  system can dominate and invalidate the result.
 ## D-015: Fixed host port prevented horizontal scaling
 - The order service published a fixed host port (8003:8000). Scaling
   beyond one instance failed with "port is already allocated": only one
